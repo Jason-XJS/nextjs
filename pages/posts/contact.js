@@ -51,7 +51,7 @@ export default function Contact() {
               />
             </Link>
             <Link href="/">
-              <img
+              <Image
                 src="/images/facebook.png"
                 width={500}
                 height={500}
@@ -60,7 +60,7 @@ export default function Contact() {
               />
             </Link>
             <Link href="https://instagram.com/silvereratransition?igshid=MzMyNGUyNmU2YQ==">
-              <img
+              <Image
                 src="/images/instagram.png"
                 width={500}
                 height={500}

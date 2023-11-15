@@ -2,7 +2,7 @@
 import {useEffect, useMemo, useState} from "react";
 import {authedRequest} from "@/services/http";
 import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
-
+import Link from 'next/link';
 
 function RegisterForm() {
 
@@ -44,7 +44,7 @@ function RegisterForm() {
                         </h1>
                         <form onSubmit={handleSubmit} className="space-y-2 md:space-y-2">
                             <p className="text-sm font-light text-end text-gray-500 dark:text-gray-400">
-                                Already have an account? <a href="/posts/login" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>
+                                Already have an account? <Link href="/posts/login" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</Link>
                             </p>
                             <div>
                                 <label htmlFor="firstname" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Firstname</label>

@@ -1,5 +1,5 @@
 import {useState} from "react";
-
+import Link from 'next/link';
 
 function LoginForm() {
 
@@ -21,7 +21,7 @@ function LoginForm() {
                         </h1>
                         <form className="space-y-2 md:space-y-2" action="#">
                             <p className="text-sm font-light text-end text-gray-500 dark:text-gray-400">
-                                Not have an account? <a href="/posts/register" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Register here</a>
+                                Not have an account? <Link href="/posts/register" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Register here</Link>
                             </p>
 
                             <div>
