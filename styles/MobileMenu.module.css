@@ -1,0 +1,22 @@
+.dropdown {
+  background: rgba(255, 255, 255, 0.23);
+  backdrop-filter: blur(5.2px);
+  -webkit-backdrop-filter: blur(5.2px);
+  display: grid;
+  position: fixed;
+  max-height: none; /* Remove max-width to make it full width */
+  height: 100%; /* Set width to 100% */
+  right: 1%;
+  padding: 20px 50px 20px 50px;
+}
+
+.menubutton {
+  color: #132a46;
+  border: none;
+  background-color: transparent;
+}
+
+.menubutton svg {
+  width: 40px;
+  height: 40px;
+}
