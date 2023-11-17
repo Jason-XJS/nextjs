@@ -34,6 +34,8 @@ const sfpro = localFont({
 });
 
 export default function MyApp({ Component, pageProps }) {
+  
+
   return (
     <main className={sfpro.className}>
       <AuthProvider>

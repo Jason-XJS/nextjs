@@ -3,9 +3,12 @@ import {useEffect, useMemo, useState} from "react";
 import {authedRequest} from "@/services/http";
 import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
 import Link from 'next/link';
+import {useAuth} from "@/services/auth";
+import {useRouter} from "next/navigation";
 
 function RegisterForm() {
-
+    const router = useRouter();
+    const {login} = useAuth();
     const [formData, setFormData] = useState({
         firstname: '',
         lastname: '',
@@ -20,13 +23,18 @@ function RegisterForm() {
 
     const handleSubmit = async (e) => {
         try {
-            console.log(process.env.SERVER_URL)
             e.preventDefault();
-            const res = await authedRequest.post(`http://localhost:4000/api/register`, {...formData});
+            const res = await authedRequest.post(`/api/register`, {...formData});
             if (res.status === 201) {
-                alert("Register success.");
+                alert("Register success");
+                const data = res.data;
+                const token = data.token;
+                const userData = data.profile;
+                login(userData, token)
+                    .then(() => {
+                        router.push(`/`)
+                    });
             }
-            window.location.href = '/posts/login';
 
         } catch (err) {
 

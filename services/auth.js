@@ -15,6 +15,7 @@ const useAuthData = () => {
         authed,
         userData,
         setUserData,
+        setAuthed,
         login: (userData, token) => {
             return new Promise((resolve, reject) => {
                 localStorage.setItem(LOCAL_TOKEN, token);
@@ -40,15 +41,22 @@ export const AuthProvider = ({children}) => {
 
     useEffect(() => {
         if (localStorage.getItem(LOCAL_TOKEN)) {
-            authedRequest.get(process.env.SERVER_URL + `/api/profile`)
+            authedRequest.get(`/api/profile`)
                 .then(res => {
                     if (res && res.data) {
+                        console.log(res.data)
                         data.setUserData(res.data);
+                        data.setAuthed(true);
                     }
                 })
                 .catch(err => {
-                    alert("Login expired!");
-                    window.location.href = `/login`;
+                    console.log(err);
+                    if (err.response.status === 401) {
+                        if (!window.location.href.includes('/login') && !window.location.href.includes('/register')) {
+                            alert(err.response.data.error);
+                            window.location.href = '/posts/login'
+                        }
+                    }
                 })
         }
     }, []);

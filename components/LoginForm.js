@@ -1,5 +1,8 @@
 import {useState} from "react";
 import Link from 'next/link';
+import {authedRequest} from "@/services/http";
+import {useAuth} from "@/services/auth";
+import {useRouter} from "next/navigation";
 
 function LoginForm() {
 
@@ -8,7 +11,31 @@ function LoginForm() {
         password: '',
     });
 
+    const router = useRouter()
+    const {login} = useAuth();
+    const handleSubmit = async (e) => {
+        try {
+            e.preventDefault();
+            const res = await authedRequest.post(`/api/login`, {...formData});
+            if (res.status === 200) {
+                alert("Login success");
+                const data = res.data;
+                const token = data.token;
+                login(data, token)
+                    .then(() => {
+                        router.replace(`/`)
+                    });
+            }
 
+        } catch (err) {
+            if (err.response.status === 404) {
+                alert('Email not found');
+            }
+            if (err.response.status === 400) {
+                alert('Password is invalid')
+            }
+        }
+    }
 
     return (
         <section className="bg-gray-50 dark:bg-gray-900">
@@ -19,7 +46,7 @@ function LoginForm() {
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                             Create and account
                         </h1>
-                        <form className="space-y-2 md:space-y-2" action="#">
+                        <form onSubmit={handleSubmit} className="space-y-2 md:space-y-2" >
                             <p className="text-sm font-light text-end text-gray-500 dark:text-gray-400">
                                 Not have an account? <Link href="/posts/register" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Register here</Link>
                             </p>
@@ -51,7 +78,9 @@ function LoginForm() {
                                        required />
                             </div>
 
-                            <button type="submit" className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create an account</button>
+                            <button type="submit" className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                Login
+                            </button>
                         </form>
                     </div>
                 </div>
