@@ -1,4 +1,4 @@
-import {RecordModel} from "@/pages/models/record.schem";
+import {RecordModel} from "@/services/models/record.schem";
 import {connectDB} from "@/db/config";
 import jwt from "jsonwebtoken";
 

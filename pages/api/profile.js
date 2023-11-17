@@ -1,6 +1,6 @@
 import {connectDB} from "@/db/config";
 import jwt from "jsonwebtoken";
-import {UserModel} from "@/pages/models/users.schem";
+import {UserModel} from "@/services/models/users.schem";
 
 
 export default async function handler(req, res) {
